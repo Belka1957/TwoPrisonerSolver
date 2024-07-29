@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>チェス盤の読み込み</title>
+</head>
+<body>
+    <h1>画像をアップロードしてね</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" capture="environment">
+        <input type="submit" value="Upload">
+    </form>
+    {% if request.method == 'POST' %}
+    <h2>Processed Image:</h2>
+    <img src="{{ url_for('static', filename='output.jpg') }}" alt="Processed Image">
+    {% endif %}
+    <br><br>
+    <a href="/qrcode">QRコードを生成する。</a>
+</body>
+</html>
