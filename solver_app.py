@@ -6,7 +6,6 @@ import os
 
 app = Flask(__name__)
 
-# チェス盤の検出（省略）
 def detect_chessboard(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -23,7 +22,6 @@ def detect_chessboard(frame):
     
     return None
 
-# 駒の検出（テンプレートマッチング）
 def detect_pieces(frame, templates):
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
@@ -37,16 +35,13 @@ def detect_pieces(frame, templates):
             cv2.rectangle(frame, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
             cv2.putText(frame, piece_name, (pt[0], pt[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-# テンプレート画像をロードする関数
 def load_templates():
-    piece_names = ["pawn", "knight", "bishop", "rook", "queen", "king"]
+    piece_names = ["pawn"]
     templates = {}
     for name in piece_names:
         template = cv2.imread(f"templates/{name}.png", 0)
         if template is not None:
             templates[name] = template
-        else:
-            print(f"Error: Could not load template for {name}")
     return templates
 
 @app.route('/', methods=['GET', 'POST'])
